@@ -1240,8 +1240,8 @@ imgui.OnFrame(function() return window.mainMenu[0] end, function(player)
 					imgui.ImVec4(0.74, 0.07, 0.23, 1.0)) then
 					ovlPushM.editPos = true
 					showCursor(true)
-					if showOverlayMessage then
-						showOverlayMessage("Режим редактирования: Перетащите оверлей уведомлений\n[y]ESC - сохранить[/]", 9999)
+					if ovlPushM.show then
+						ovlPushM.show("Режим редактирования: Перетащите оверлей уведомлений\n[y]ESC - сохранить[/]", 9999)
 					end
 				end
 				if imgui.IsItemHovered() then
@@ -1285,8 +1285,8 @@ imgui.OnFrame(function() return window.mainMenu[0] end, function(player)
 					imgui.ImVec4(0.74, 0.07, 0.23, 1.0)) then
 					ovlXyz.editPos = true
 					showCursor(true)
-					if showOverlayMessage then
-						showOverlayMessage("Режим редактирования: Перетащите оверлей координат\n[y]ESC - сохранить[/]", 9999)
+					if ovlPushM.show then
+						ovlPushM.show("Режим редактирования: Перетащите оверлей координат\n[y]ESC - сохранить[/]", 9999)
 					end
 				end
 				if imgui.IsItemHovered() then
@@ -1624,7 +1624,7 @@ lua_thread.create(function()
                     ovlPushM.editPos = false
                     ovlPushM.isDragging = false
                     showCursor(false)
-                    if hideOverlayMessage then hideOverlayMessage() end
+                    if ovlPushM.hide then ovlPushM.hide() end
                     saveSettings()
                 end
             end
@@ -1729,7 +1729,7 @@ lua_thread.create(function()
             ovlXyz.editPos = false
             ovlXyz.isDragging = false
             showCursor(false)
-            if hideOverlayMessage then hideOverlayMessage() end
+            if ovlPushM.hide then ovlPushM.hide() end
             saveSettings()
         end
 
