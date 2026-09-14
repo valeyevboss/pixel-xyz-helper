@@ -32,7 +32,7 @@ u8 = encoding.UTF8
 
 -- Переменные автора и даты
 local authorName = "Nikita Valeyev"
-local lastdateUpdate = "13.09.2026"
+local lastdateUpdate = "15.09.2026"
 local nickname = "Unknown"
 
 -- Окна и состояния
@@ -214,10 +214,6 @@ imgui.OnInitialize(function()
     style.Colors[imgui.Col.TitleBgCollapsed]   = titleBgColor
 end)
 
--- ===================================
--- Функция ввода и форматирования
--- ===================================
-
 -- UI стили для текста
 local textColor = imgui.ImVec4(1, 1, 1, 1)
 local gray1 = imgui.ImVec4(0.75, 0.75, 0.75, 1.0)
@@ -227,6 +223,10 @@ local yellow1 = imgui.ImVec4(1.0, 0.85, 0.25, 1.0)
 local pink1 = imgui.ImVec4(1.0, 0.41, 0.71, 1.0)
 local cyan1     = imgui.ImVec4(0.35, 0.75, 1.00, 1.0)
 local purple1   = imgui.ImVec4(0.70, 0.40, 0.95, 1.0)
+
+-- ===================================
+-- Функция ввода и форматирования
+-- ===================================
 
 -- Преобразование кода клавиши в понятное название
 local function keyToName(key)
@@ -626,7 +626,7 @@ local function resetSettings()
     }
 	-- синхронизация imgui-переменных
 	overlayPushM[0] = true
-	overlayPushM[0] = true
+	overlayPushMSound[0] = true
 	overlayXyz[0] = true
 	overlayXyzBackground[0] = false
 	
@@ -1745,7 +1745,8 @@ function main()
     
     local _, id = sampGetPlayerIdByCharHandle(PLAYER_PED)
     nickname = sampGetPlayerNickname(id) or "Unknown"
-
+	
+	-- Регистрация команд
     sampRegisterChatCommand("xyzmenu", cmd_xyzmenu)
 	sampRegisterChatCommand("xyzhelp", cmd_xyzhelp)
 	sampRegisterChatCommand("currentxyz", cmd_currentxyz)
@@ -1801,7 +1802,9 @@ end
 -- =========================
 lua_thread.create(function()
     wait(3000)
-    sampAddChatMessage("{FF1493}[Pixel XYZ Helper]: {FFFFFF}Автор скрипта: {FFD700} Nikita Valeyev", -1)
+    sampAddChatMessage(string.format("{FF1493}[Pixel XYZ Helper]: {FFFFFF}Автор скрипта: {FFD700}%s", authorName), -1)
+	sampAddChatMessage(string.format("{FF1493}[Pixel XYZ Helper]: {FFFFFF}Последнее обновление: {FFD700}%s", lastdateUpdate), -1)
+	sampAddChatMessage(string.format("{FF1493}[Pixel XYZ Helper]: {FFFFFF}Скрипт загружен! %s - меню.", keyToName(settings.hotkeys.mainMenu)), -1)
 	sampAddChatMessage("{FF1493}[Pixel XYZ Helper]: {FFFFFF}Альтернативный способ открытия меню доступен по команде /xyzmenu.", -1)
 	sampAddChatMessage("{FF1493}[Pixel XYZ Helper]: {FFFFFF}Открыть окно помощи, просмотр всех доступных команд /xyzhelp.", -1)
 end)
